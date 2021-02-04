@@ -5,6 +5,8 @@ export class Navbar extends Component {
   render() {
     return (
       <Navwrapper>
+        <div className="container">
+
         <nav class="navbar navbar-expand-lg navbar-light">
           <a class="navbar-brand" href="#">
             Flight Reservation
@@ -51,6 +53,7 @@ export class Navbar extends Component {
             </ul>
           </div>
         </nav>
+        </div>
       </Navwrapper>
     );
   }
@@ -60,6 +63,7 @@ export default Navbar;
 
 const Navwrapper = styled.div`
   font-family: "Poppins", sans-serif;
+  border-bottom: 1px solid rgb(255 255 255 / 50%);
   .navbar .nav-item .nav-link,
   .navbar-brand {
     color: white !important;
