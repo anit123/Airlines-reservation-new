@@ -1,129 +1,84 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { BsArrowRight } from "react-icons/all";
+import { Link } from "react-router-dom";
 
 class Login extends Component {
   render() {
     return (
       <LoginWrapper>
-        {/* <section className="form my-4 mx-5">
-          <div className="container">
-            <div className="row no-gutters">
-              <div className="col-lg-5">
-                <img src="images/login-image.jpg" class="img-fluid" alt="" />
+        <div className="background-img">
+          <div class="container h-100">
+            <div class="d-flex justify-content-center h-100">
+              <div className="user-card">
+                <img src="images/login-image.jpg" alt="" />
               </div>
-              <div className="col-lg-7 px-5 pt-5">
-                <h1 class="font-weight-bold my-3">Flight Reservation</h1>
-                <h4>Signin to your account</h4>
-                <form>
-                  <div className="form-row">
-                    <div className="col-lg-7">
+              <div class="user_card">
+                <div class="d-flex justify-content-center">
+                  <h1>Flight Reservation</h1>
+                </div>
+                <div class="d-flex justify-content-center form_container">
+                  <form>
+                    <div class="input-group mb-3">
+                      <div class="input-group-append">
+                        <span class="input-group-text">
+                          <i class="fas fa-user"></i>
+                        </span>
+                      </div>
                       <input
-                        type="email"
-                        className="form-control"
-                        placeholder="Email"
-                        my-3
-                        p-4
+                        type="text"
+                        name=""
+                        class="form-control input_user"
+                        value=""
+                        placeholder="username"
                       />
                     </div>
-                  </div>
-                  <div className="form-row">
-                    <div className="col-lg-7">
+                    <div class="input-group mb-2">
+                      <div class="input-group-append">
+                        <span class="input-group-text">
+                          <i class="fas fa-key"></i>
+                        </span>
+                      </div>
                       <input
                         type="password"
-                        className="form-control"
-                        placeholder="Password"
+                        name=""
+                        class="form-control input_pass"
+                        value=""
+                        placeholder="password"
                       />
                     </div>
-                  </div>
-                  <div className="form-row">
-                    <div className="col-lg-7">
-                      <button type="button" class="btn1">
+                    <div class="form-group">
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="customControlInline"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="customControlInline"
+                        >
+                          Remember me
+                        </label>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3 login_container">
+                      <button type="button" name="button" class="btn login_btn">
                         Login
                       </button>
                     </div>
-                  </div>
-                  <a href="#">Forgot password</a>
-                  <p>
-                    Don't have account <a href="#">Register here</a>
-                  </p>
-                </form>
-              </div>
-            </div>
-          </div>
-        </section> */}
-
-        <div class="container h-100">
-          <div class="d-flex justify-content-center h-100">
-            <div className="user-card">
-              <img src="images/login-image.jpg" alt="" />
-            </div>
-            <div class="user_card">
-              <div class="d-flex justify-content-center">
-                <h1>Flight Reservation</h1>
-              </div>
-              <div class="d-flex justify-content-center form_container">
-                <form>
-                  <div class="input-group mb-3">
-                    <div class="input-group-append">
-                      <span class="input-group-text">
-                        <i class="fas fa-user"></i>
-                      </span>
-                    </div>
-                    <input
-                      type="text"
-                      name=""
-                      class="form-control input_user"
-                      value=""
-                      placeholder="username"
-                    />
-                  </div>
-                  <div class="input-group mb-2">
-                    <div class="input-group-append">
-                      <span class="input-group-text">
-                        <i class="fas fa-key"></i>
-                      </span>
-                    </div>
-                    <input
-                      type="password"
-                      name=""
-                      class="form-control input_pass"
-                      value=""
-                      placeholder="password"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                      <input
-                        type="checkbox"
-                        class="custom-control-input"
-                        id="customControlInline"
-                      />
-                      <label
-                        class="custom-control-label"
-                        for="customControlInline"
-                      >
-                        Remember me
-                      </label>
-                    </div>
-                  </div>
-                  <div class="d-flex justify-content-center mt-3 login_container">
-                    <button type="button" name="button" class="btn login_btn">
-                      Login
-                    </button>
-                  </div>
-                </form>
-              </div>
-
-              <div class="mt-4">
-                <div class="d-flex justify-content-center links">
-                  Don't have an account?{" "}
-                  <a href="#" class="ml-2">
-                    Sign Up
-                  </a>
+                  </form>
                 </div>
-                <div class="d-flex justify-content-center links">
-                  <a href="#">Forgot your password?</a>
+
+                <div class="mt-4">
+                  <div class="d-flex justify-content-center links">
+                    Don't have an account?{" "}
+                    <Link to="/signup" class="ml-2">
+                      Sign Up
+                    </Link>
+                  </div>
+                  <div class="d-flex justify-content-center links">
+                    <a href="#">Forgot your password?</a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -214,41 +169,17 @@ const LoginWrapper = styled.div`
     border-bottom-left-radius: 30px;
     margin-right: 38px;
   }
+  .background-img {
+    background-image: linear-gradient(
+      90deg,
+      rgba(2, 0, 36, 1) 0%,
+      rgba(9, 9, 121, 1) 0%,
+      rgba(0, 212, 255, 1) 100%
+    );
+    /* background-image:linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 100%), url("images/banner-image.jpg"); */
+    height: 85vh;
+    background-size: cover;
+  }
 `;
 
 export default Login;
-
-// .row {
-//     border-radius: 30px;
-//     background: white;
-//   }
-//   img {
-//     border-top-left-radius: 30px;
-//     border-bottom-left-radius: 30px;
-//     margin-top: 30%;
-//   }
-//   input {
-//     margin-top: 1px;
-//     margin-bottom: -30px;
-//     padding: 4px;
-//   }
-//   .col-lg-7 {
-//     margin-top: 6%;
-//   }
-//   h1 {
-//     color: #fff;
-//   }
-//   a {
-//     color: white;
-//     padding-top: 10px;
-//     margin-top: 10%;
-//   }
-//   .btn1 {
-//     width: 100%;
-//     border: none;
-//     outline: none;
-//     height: 141%;
-//     border-radius: 10px;
-//     background: black;
-//     color: white;
-//   }
