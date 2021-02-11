@@ -10,6 +10,15 @@ import {
 import Stepprocess from "../Home/component/Stepprocess";
 
 class Flightinfo extends Component {
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+             isTwowayActive=true        }
+    }
+
+
+    
   render() {
     return (
       <Infowrapper>
@@ -128,7 +137,7 @@ class Flightinfo extends Component {
               <button
                 type="submit"
                 className="btn btn-primary search "
-                onclick="update($(this));"
+                onclick={}
               >
                 <i class="fa fa-arrow-circle-o-up" aria-hidden="true">
                   <BsSearch />
