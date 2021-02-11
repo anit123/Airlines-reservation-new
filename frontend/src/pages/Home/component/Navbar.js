@@ -10,9 +10,9 @@ export class Navbar extends Component {
       <Navwrapper>
         <div className="container">
           <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="#">
+            <Link to="/" class="navbar-brand">
               Flight Reservation
-            </a>
+            </Link>
             <button
               class="navbar-toggler"
               type="button"
@@ -33,17 +33,17 @@ export class Navbar extends Component {
                   </Link>
                 </li>
                 <li class="nav-item">
-                  <Link class="nav-link" href="#">
+                  <Link to="/ticketstatus" class="nav-link" href="#">
                     Ticket Status
                   </Link>
                 </li>
                 <li class="nav-item">
-                  <Link class="nav-link" href="#">
+                  <Link to="/flightinfo" class="nav-link" href="#">
                     Flight Info
                   </Link>
                 </li>
                 <li class="nav-item">
-                  <Link class="nav-link" href="#">
+                  <Link to="/webcheckin" class="nav-link" href="#">
                     Web Checkin
                   </Link>
                 </li>

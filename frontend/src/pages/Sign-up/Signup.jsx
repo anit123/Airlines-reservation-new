@@ -106,8 +106,10 @@ const SignupWrapper = styled.div`
     rgba(0, 212, 255, 1) 100%
   );
   h5 {
-    margin-left: 33%;
+    margin-left: 18%;
+    font-weight: 600;
     padding: 37px;
+    color: #2632be;
   }
   /* background-image:linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 100%), url("images/banner-image.jpg"); */
   height: 85vh;

@@ -77,7 +77,7 @@ class Login extends Component {
                     </Link>
                   </div>
                   <div class="d-flex justify-content-center links">
-                    <a href="#">Forgot your password?</a>
+                    <Link to="/forgotpassword">Forgot your password?</Link>
                   </div>
                 </div>
               </div>
