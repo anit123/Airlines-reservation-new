@@ -5,6 +5,10 @@ import { GrFacebookOption } from 'react-icons/gr';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 const Foooter = () => {
+    // let count = 0
+    // const addNum = () => {
+        
+    // }
     return (
         <FooterStyled>
         <div className="container">

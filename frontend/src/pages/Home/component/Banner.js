@@ -7,7 +7,7 @@ class Banner extends Component {
   render() {
     return (
       <BannerWraper>
-          <Navbar />
+       
         <div className="container">
         <div className="row search-com">
           <div className="col-md-6">
