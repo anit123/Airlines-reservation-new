@@ -8,24 +8,17 @@ import {
   BsSearch,
 } from "react-icons/all";
 import Stepprocess from "../Home/component/Stepprocess";
+import Flightdetails from "./Flightdetails";
 
 class Flightinfo extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isTwowayActive: true,
-    };
-  }
-
   render() {
     return (
       <Infowrapper>
         <div className="flightdetails">
-          <div className="buttonwrapper">
+          {/* <div className="buttonwrapper">
             <button className="btn btn-primary">Two Way</button>
             <button className="btn btn-primary ml-3">One Way</button>
-          </div>
+          </div> */}
           <form class="form-inline">
             <div class="col-auto">
               <label class="sr-only" for="inlineFormInputGroup">
@@ -131,13 +124,37 @@ class Flightinfo extends Component {
                 />
               </div>
             </div>
-
-            <div className="col-auto">
-              <button
-                type="submit"
-                className="btn btn-primary search "
-                // onclick={}
+            <div class="custom-control custom-radio custom-control-inline">
+              <input
+                type="radio"
+                id="customRadioInline1"
+                name="customRadioInline1"
+                class="custom-control-input"
+                checked
+              />
+              <label
+                class="custom-control-label text-white"
+                for="customRadioInline1"
               >
+                One Way
+              </label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input
+                type="radio"
+                id="customRadioInline2"
+                name="customRadioInline1"
+                class="custom-control-input"
+              />
+              <label
+                class="custom-control-label text-white"
+                for="customRadioInline2"
+              >
+                Two Way
+              </label>
+            </div>
+            <div className="col-auto">
+              <button type="submit" className="btn btn-primary search " onclick>
                 <i class="fa fa-arrow-circle-o-up" aria-hidden="true">
                   <BsSearch />
                 </i>
@@ -146,14 +163,17 @@ class Flightinfo extends Component {
           </form>
         </div>
         <Stepprocess />
+        <Flightdetails />
       </Infowrapper>
     );
   }
 }
 
 export default Flightinfo;
+
 const Infowrapper = styled.div`
   .flightdetails {
+padding:40px 0;
     background-image: linear-gradient(
       90deg,
       rgba(2, 0, 36, 1) 0%,
@@ -161,9 +181,8 @@ const Infowrapper = styled.div`
       rgba(0, 212, 255, 1) 100%
     );
     /* background-image:linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 100%), url("images/banner-image.jpg"); */
-    height: 15vh;
+    /* height: 15vh; */
     background-size: cover;
-
  
     }
     .form-inline{

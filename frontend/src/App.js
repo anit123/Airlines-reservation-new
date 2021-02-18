@@ -10,6 +10,7 @@ import Forgotpassword from "./pages/Sign-up/Forgotpassword";
 import Ticketstatus from "./pages/components/Ticketstatus";
 import Flightinfo from "./pages/components/Flightinfo";
 import Webcheckin from "./pages/components/Webcheckin";
+import PassangerDetails from "./pages/PassangerDetails";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/forgotpassword" component={Forgotpassword} />
         <Route path="/ticketstatus" component={Ticketstatus} />
         <Route path="/flightinfo" component={Flightinfo} />
+        <Route path="/bookingDetails/:bookingId" component={PassangerDetails} />
         <Route path="/webcheckin" component={Webcheckin} />
       </Switch>
       <Footer />

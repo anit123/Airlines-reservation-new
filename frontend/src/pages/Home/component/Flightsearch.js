@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { BsArrowRight } from "react-icons/all";
+import { Link } from "react-router-dom";
 
 export class Flightsearch extends Component {
   render() {
@@ -65,10 +66,14 @@ export class Flightsearch extends Component {
                 </div>
               </div>
               <div className="text-center mt-4">
-                <button type="submit" class="btn btn-primary myButton">
+                <Link
+                  to={`/flightinfo`}
+                  type="submit"
+                  class="btn btn-primary myButton"
+                >
                   Search Now
                   <BsArrowRight />
-                </button>
+                </Link>
               </div>
             </form>
           </div>
