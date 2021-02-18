@@ -8,17 +8,9 @@ import {
   BsSearch,
 } from "react-icons/all";
 import Stepprocess from "../Home/component/Stepprocess";
+import Flightdetails from "./Flightdetails";
 
 class Flightinfo extends Component {
-    constructor(props) {
-        super(props)
-    
-        this.state = {
-             isTwowayActive=true        }
-    }
-
-
-    
   render() {
     return (
       <Infowrapper>
@@ -134,11 +126,7 @@ class Flightinfo extends Component {
             </div>
 
             <div className="col-auto">
-              <button
-                type="submit"
-                className="btn btn-primary search "
-                onclick={}
-              >
+              <button type="submit" className="btn btn-primary search " onclick>
                 <i class="fa fa-arrow-circle-o-up" aria-hidden="true">
                   <BsSearch />
                 </i>
@@ -147,12 +135,14 @@ class Flightinfo extends Component {
           </form>
         </div>
         <Stepprocess />
+        <Flightdetails />
       </Infowrapper>
     );
   }
 }
 
 export default Flightinfo;
+
 const Infowrapper = styled.div`
   .flightdetails {
     background-image: linear-gradient(
