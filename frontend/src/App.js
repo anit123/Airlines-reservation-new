@@ -11,6 +11,8 @@ import Ticketstatus from "./pages/components/Ticketstatus";
 import Flightinfo from "./pages/components/Flightinfo";
 import Webcheckin from "./pages/components/Webcheckin";
 import PassangerDetails from "./pages/PassangerDetails";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
         <Route path="/webcheckin" component={Webcheckin} />
       </Switch>
       <Footer />
+      <ToastContainer />
     </div>
   );
 }

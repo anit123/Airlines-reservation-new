@@ -1,11 +1,27 @@
+import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { Component } from "react";
+import { toast } from "react-toastify";
 import styled from "styled-components";
+import { baseURl } from "../../constants/apiContact";
 import BookingFlightInfo from "./components/BookFlightInFo";
 import { initialValue, validationSchema } from "./schema";
 
 class PassangerDetails extends Component {
   state = {};
+
+  handleSubmit = (values) => {
+    console.log(values);
+
+    axios
+      .post(`${baseURl}api/v1/flight-booking`, values)
+      .then((res) => {
+        if (res.status === 201) {
+          toast.info("Your booking has successfully complted.");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
   render() {
     return (
       <Wrapper>
@@ -14,11 +30,20 @@ class PassangerDetails extends Component {
           <h3 className="my-3">Contact Information</h3>
           <span>Note: All Passanger must have valid password and visa.</span>
           <Formik
-            onSubmit={() => {}}
             validationSchema={validationSchema}
             initialValues={initialValue}
+            // onSubmit={(values) => {
+            //   console.log(values);
+            //   this.handleSubmit(values);
+            // }}
+            onSubmit={(values, actions) => {
+              setTimeout(() => {
+                this.handleSubmit(values);
+                actions.setSubmitting(false);
+              }, 1000);
+            }}
           >
-            {() => {
+            {({ handleChange, handleBlur }) => {
               return (
                 <Form>
                   <div className="row mt-3">
@@ -51,7 +76,11 @@ class PassangerDetails extends Component {
                     <div className="col-md-4">
                       <div class="form-group">
                         <label for="exampleFormControlSelect1">Gender</label>
-                        <select class="form-control" id="gender">
+                        <select
+                          onClick={handleChange}
+                          class="form-control"
+                          id="gender"
+                        >
                           <option selected disabled>
                             ...
                           </option>
@@ -133,13 +162,28 @@ class PassangerDetails extends Component {
                     <div className="col-md-4">
                       <div class="form-group">
                         <label for="exampleFormControlSelect1">Gender</label>
-                        <select class="form-control" id="passgender">
+                        <select
+                          onClick={handleChange}
+                          class="form-control"
+                          id="passgender"
+                        >
                           <option selected disabled>
                             ...
                           </option>
                           <option>Male</option>
                           <option>Famel</option>
                         </select>
+                      </div>
+                    </div>
+                    <div className="col-md-4">
+                      <label htmlFor="">Country:</label>
+                      <div className="form-group">
+                        <Field className="form-control" name="passcountry" />
+                        <ErrorMessage
+                          name="passcountry"
+                          component="div"
+                          className="text-danger"
+                        />
                       </div>
                     </div>
                     <div className="col-md-4">
@@ -191,7 +235,9 @@ class PassangerDetails extends Component {
                       </div>
                     </div>
                   </div>
-                  <button className="btn btn-primary ">Save</button>
+                  <button type="submit" className="btn btn-primary ">
+                    Save
+                  </button>
                 </Form>
               );
             }}
