@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { baseURl } from "../../constants/apiContact";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import moment from "moment";
+import { getQueryParams } from "../../utils/getQueryString";
 export class Flightdetails extends Component {
   constructor(props) {
     super(props);
@@ -14,10 +15,26 @@ export class Flightdetails extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${baseURl}api/v1/flight`).then((response) => {
-      console.log(response);
-      this.setState({ flightDetails: response.data.data.data });
-    });
+    const from = getQueryParams(this.props.location.search).get("from");
+    const to = getQueryParams(this.props.location.search).get("to");
+    const departure = getQueryParams(this.props.location.search).get(
+      "departure"
+    );
+    const returnDate = getQueryParams(this.props.location.search).get("return");
+    console.log(from);
+    axios
+      .get(`${baseURl}api/v1/flight`, {
+        params: {
+          from: from,
+          to,
+          departure,
+          return: returnDate,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        this.setState({ flightDetails: response.data.data.data });
+      });
   }
 
   render() {
@@ -60,6 +77,9 @@ export class Flightdetails extends Component {
                   </tr>
                 );
               })}
+              {this.state.flightDetails.length === 0 && (
+                <h6 className="text-center my-3 w-100">there are no data.</h6>
+              )}
             </tbody>
           </table>
         </div>
@@ -68,7 +88,7 @@ export class Flightdetails extends Component {
   }
 }
 
-export default Flightdetails;
+export default withRouter(Flightdetails);
 
 const FlightdetailsWrapper = styled.div`
   margin-top: 130px;

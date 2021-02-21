@@ -13,8 +13,19 @@ import Webcheckin from "./pages/components/Webcheckin";
 import PassangerDetails from "./pages/PassangerDetails";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import React from "react";
+import { loadUser } from "./store/auth/AuthAction";
+import { connect } from "react-redux";
+import store from "./store/rootStore";
+import setAuthToken from "./utils/SetAuthTokenUtility";
 
+if (localStorage.token) {
+  setAuthToken(localStorage.toke);
+}
 function App() {
+  React.useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
   return (
     <div className="App">
       <Navbar />
@@ -34,4 +45,7 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+export default connect(mapStateToProps)(App);

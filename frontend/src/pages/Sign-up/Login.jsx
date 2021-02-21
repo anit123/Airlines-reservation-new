@@ -1,8 +1,33 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { login } from "../../store/auth/AuthAction";
+import { ErrorMessage, Form, Formik } from "formik";
+import * as Yup from "yup";
 
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email().required("This is required field!"),
+  password: Yup.string().required("This is required field!"),
+});
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      formData: {
+        email: "",
+        password: "",
+      },
+    };
+  }
+
+  handleLoginSubmit = (values) => {
+    this.props.login(values.email, values.password);
+    console.log(this.props.auth);
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/");
+    }
+  };
   render() {
     return (
       <LoginWrapper>
@@ -17,7 +42,76 @@ class Login extends Component {
                   <h1>Flight Reservation</h1>
                 </div>
                 <div class="d-flex justify-content-center form_container">
-                  <form>
+                  <Formik
+                    initialValues={this.state.formData}
+                    validationSchema={validationSchema}
+                    onSubmit={(values) => {
+                      this.handleLoginSubmit(values);
+                    }}
+                  >
+                    {({ handleChange, handleBlur, values }) => {
+                      return (
+                        <Form>
+                          <div className="form-row">
+                            <div className="col-sm-12 mb-3">
+                              <div class="input-group ">
+                                <div class="input-group-append">
+                                  <span class="input-group-text">
+                                    <i class="fas fa-user"></i>
+                                  </span>
+                                </div>
+                                <input
+                                  type="email"
+                                  class="form-control input_user"
+                                  value={values.email}
+                                  placeholder="username"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  name="email"
+                                />
+                              </div>
+                              <ErrorMessage
+                                name="email"
+                                component="div"
+                                className="text-danger"
+                              />
+                            </div>
+                            <div className="col-sm-12 mb-3">
+                              <div class="input-group">
+                                <div class="input-group-append">
+                                  <span class="input-group-text">
+                                    <i class="fas fa-user"></i>
+                                  </span>
+                                </div>
+                                <input
+                                  type="password"
+                                  class="form-control input_user"
+                                  value={values.password}
+                                  placeholder="password"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  name="password"
+                                />
+                              </div>
+                              <ErrorMessage
+                                name="password"
+                                component="div"
+                                className="text-danger"
+                              />
+                            </div>
+                          </div>
+                          <button
+                            type="submit"
+                            name="button"
+                            class="btn login_btn"
+                          >
+                            Login
+                          </button>
+                        </Form>
+                      );
+                    }}
+                  </Formik>
+                  {/* <form>
                     <div class="input-group mb-3">
                       <div class="input-group-append">
                         <span class="input-group-text">
@@ -66,7 +160,7 @@ class Login extends Component {
                         Login
                       </button>
                     </div>
-                  </form>
+                  </form> */}
                 </div>
 
                 <div class="mt-4">
@@ -182,4 +276,8 @@ const LoginWrapper = styled.div`
   }
 `;
 
-export default Login;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { login })(Login);
