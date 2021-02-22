@@ -3,9 +3,14 @@ import styled from "styled-components";
 import Login from "../../Sign-up/Login";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "../Index";
+import { connect } from "react-redux";
+import { DropdownButton, Dropdown, NavDropdown } from "react-bootstrap";
+// import { Dropdown } from "bootstrap";
 
 export class Navbar extends Component {
   render() {
+    console.log(this.props.auth);
+
     return (
       <Navwrapper>
         <div className="container">
@@ -47,11 +52,27 @@ export class Navbar extends Component {
                     Web Checkin
                   </Link>
                 </li>
-                <li class="nav-item">
-                  <Link to="/login" class="nav-link" href="#">
-                    Log in
-                  </Link>
-                </li>
+                {this.props.auth.user?.result?.role === "user" ? (
+                  <li class="nav-item">
+                    {/* <Link to="/login" class="nav-link" href="#">
+                      {this.props.auth.user?.result?.name}
+                    </Link> */}
+                    <NavDropdown
+                      // id="dropdown-basic-button"
+                      title={this.props.auth.user?.result?.name}
+                      className="btn p-0"
+                    >
+                      <Dropdown.Item href="#/action-1">Booking</Dropdown.Item>
+                      <Dropdown.Item href="#/action-2">Profile</Dropdown.Item>
+                    </NavDropdown>
+                  </li>
+                ) : (
+                  <li class="nav-item">
+                    <Link to="/login" class="nav-link" href="#">
+                      Log in
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
           </nav>
@@ -61,7 +82,11 @@ export class Navbar extends Component {
   }
 }
 
-export default Navbar;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, {})(Navbar);
 
 const Navwrapper = styled.div`
   font-family: "Poppins", sans-serif;

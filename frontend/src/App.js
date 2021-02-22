@@ -2,7 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./pages/Home/Index";
 import Footer from "./pages/components/Footer";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 import Signup from "./pages/Sign-up/Signup";
 import Login from "./pages/Sign-up/Login";
 import Navbar from "./pages/Home/component/Navbar";
@@ -18,17 +18,24 @@ import { loadUser } from "./store/auth/AuthAction";
 import { connect } from "react-redux";
 import store from "./store/rootStore";
 import setAuthToken from "./utils/SetAuthTokenUtility";
+import PrivateRouter from "./utils/PrivateRouter";
+import Dashboard from "./dashboard/App";
 
 if (localStorage.token) {
   setAuthToken(localStorage.toke);
 }
-function App() {
+function App({ auth }) {
+  const history = useHistory();
   React.useEffect(() => {
     store.dispatch(loadUser());
   }, []);
+
+  if (auth.user?.result?.role === "admin") {
+    history.push("/dashboard");
+  }
   return (
     <div className="App">
-      <Navbar />
+      {!history.location.pathname.includes("/dashboard") && <Navbar />}
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/signup" component={Signup} />
@@ -38,8 +45,9 @@ function App() {
         <Route path="/flightinfo" component={Flightinfo} />
         <Route path="/bookingDetails/:bookingId" component={PassangerDetails} />
         <Route path="/webcheckin" component={Webcheckin} />
+        <PrivateRouter path="/dashboard" component={Dashboard} />
       </Switch>
-      <Footer />
+      {!history.location.pathname.includes("/dashboard") && <Footer />}
       <ToastContainer />
     </div>
   );
