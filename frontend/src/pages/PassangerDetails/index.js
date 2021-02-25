@@ -16,9 +16,9 @@ class PassangerDetails extends Component {
     axios
       .post(`${baseURl}api/v1/flight-booking`, values)
       .then((res) => {
-        if (res.status === 201) {
+        if ((res.status === 201) | (res.status === 200)) {
+          this.props.history.push(`${this.props.match.url}/payment`);
           toast.info("Your booking has successfully complted.");
-          this.props.history.push(this.props.match.url / +"payment");
         }
       })
       .catch((err) => console.log(err));

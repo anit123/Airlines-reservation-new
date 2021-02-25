@@ -44,12 +44,12 @@ function App({ auth }) {
         <Route path="/forgotpassword" component={Forgotpassword} />
         <Route path="/ticketstatus" component={Ticketstatus} />
         <Route path="/flightinfo" component={Flightinfo} />
+        <Route path="/bookingDetails/:bookingId/payment" component={Payment} />
         <Route
           path="/bookingDetails/:bookingId"
           exact
           component={PassangerDetails}
         />
-        <Route path="/bookingDetails/:bookingId/payment" component={Payment} />
         <Route path="/webcheckin" component={Webcheckin} />
         <PrivateRouter path="/dashboard" component={Dashboard} />
       </Switch>
