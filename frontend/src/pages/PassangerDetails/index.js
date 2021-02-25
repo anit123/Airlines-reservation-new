@@ -10,7 +10,7 @@ import { initialValue, validationSchema } from "./schema";
 class PassangerDetails extends Component {
   state = {};
 
-  handleSubmit = (values) => {
+  handleSubmit = async (values) => {
     console.log(values);
 
     axios
@@ -18,10 +18,12 @@ class PassangerDetails extends Component {
       .then((res) => {
         if (res.status === 201) {
           toast.info("Your booking has successfully complted.");
+          this.props.history.push(this.props.match.url / +"payment");
         }
       })
       .catch((err) => console.log(err));
   };
+
   render() {
     return (
       <Wrapper>
@@ -29,6 +31,12 @@ class PassangerDetails extends Component {
         <div className="container mt-3">
           <h3 className="my-3">Contact Information</h3>
           <span>Note: All Passanger must have valid password and visa.</span>
+          {/* <button
+            className="btn btn-sm btn-primary"
+            onClick={this.handlePayment}
+          >
+            Make Payment
+          </button> */}
           <Formik
             validationSchema={validationSchema}
             initialValues={initialValue}

@@ -5,6 +5,8 @@ import { baseURl } from "../../constants/apiContact";
 import { Link, withRouter } from "react-router-dom";
 import moment from "moment";
 import { getQueryParams } from "../../utils/getQueryString";
+import { connect } from "react-redux";
+import { toast } from "react-toastify";
 export class Flightdetails extends Component {
   constructor(props) {
     super(props);
@@ -37,6 +39,14 @@ export class Flightdetails extends Component {
       });
   }
 
+  handlePushToDetails = (content) => {
+    if (this.props.auth.isAuthenticated) {
+      return this.props.history.push(`/bookingDetails/${content._id}`);
+    }
+
+    toast.success("Please login first for booking!");
+  };
+
   render() {
     return (
       <FlightdetailsWrapper>
@@ -65,14 +75,13 @@ export class Flightdetails extends Component {
                     <td>{moment(content.endingDate).format("MMM Do YY")}</td>
                     <td>{content.isInbound && "true"}</td>
                     <td>{content.weight}</td>
-                    <td>
-                      {" "}
-                      <Link
-                        to={`/bookingDetails/${content._id}`}
+                    <td onClick={() => this.handlePushToDetails(content)}>
+                      <button
+                        // to={`/bookingDetails/${content._id}`}
                         className="btn btn-sm btn-success"
                       >
                         Book
-                      </Link>
+                      </button>
                     </td>
                   </tr>
                 );
@@ -87,8 +96,11 @@ export class Flightdetails extends Component {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
-export default withRouter(Flightdetails);
+export default connect(mapStateToProps, {})(withRouter(Flightdetails));
 
 const FlightdetailsWrapper = styled.div`
   margin-top: 130px;

@@ -34,21 +34,33 @@ export const loadUser = () => async (dispatch) => {
 };
 
 // Register user
-export const register = ({ name, email, password }) => async (dispatch) => {
+export const register = ({ name, email, password, passwordConfirm }) => async (
+  dispatch
+) => {
   const config = {
     header: {
       "Content-Type": "application/json",
     },
   };
 
-  const body = JSON.stringify({ name, email, password });
+  const body = { name, email, password, passwordConfirm };
 
   try {
-    const res = await axios.post("/auth/register", body, config);
+    const res = await axios.post(
+      `${apiEndPoint}api/v1/users/signup`,
+      body,
+      config
+    );
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data,
     });
+    if (res.status === 201) {
+      dispatch({
+        type: USER_LOADED,
+        payload: localStorage.toke,
+      });
+    }
   } catch (error) {
     dispatch({
       type: REGISTER_FAIL,

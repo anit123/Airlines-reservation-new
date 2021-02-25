@@ -20,6 +20,7 @@ import store from "./store/rootStore";
 import setAuthToken from "./utils/SetAuthTokenUtility";
 import PrivateRouter from "./utils/PrivateRouter";
 import Dashboard from "./dashboard/App";
+import Payment from "./pages/PassangerDetails/Payment";
 
 if (localStorage.token) {
   setAuthToken(localStorage.toke);
@@ -43,7 +44,12 @@ function App({ auth }) {
         <Route path="/forgotpassword" component={Forgotpassword} />
         <Route path="/ticketstatus" component={Ticketstatus} />
         <Route path="/flightinfo" component={Flightinfo} />
-        <Route path="/bookingDetails/:bookingId" component={PassangerDetails} />
+        <Route
+          path="/bookingDetails/:bookingId"
+          exact
+          component={PassangerDetails}
+        />
+        <Route path="/bookingDetails/:bookingId/payment" component={Payment} />
         <Route path="/webcheckin" component={Webcheckin} />
         <PrivateRouter path="/dashboard" component={Dashboard} />
       </Switch>

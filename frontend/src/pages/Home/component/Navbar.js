@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import Login from "../../Sign-up/Login";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  withRouter,
+} from "react-router-dom";
 import Home from "../Index";
 import { connect } from "react-redux";
 import { DropdownButton, Dropdown, NavDropdown } from "react-bootstrap";
 // import { Dropdown } from "bootstrap";
+import { logout, loadUser } from "../../../store/auth/AuthAction";
 
 export class Navbar extends Component {
   render() {
@@ -64,6 +71,18 @@ export class Navbar extends Component {
                     >
                       <Dropdown.Item href="#/action-1">Booking</Dropdown.Item>
                       <Dropdown.Item href="#/action-2">Profile</Dropdown.Item>
+                      <Dropdown.Item>
+                        <span
+                          onClick={() => {
+                            this.props.history.replace("/");
+                            this.props.logout();
+                            this.props.loadUser();
+                            window.location.reload();
+                          }}
+                        >
+                          Logout
+                        </span>
+                      </Dropdown.Item>
                     </NavDropdown>
                   </li>
                 ) : (
@@ -86,7 +105,9 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, {})(Navbar);
+export default connect(mapStateToProps, { logout, loadUser })(
+  withRouter(Navbar)
+);
 
 const Navwrapper = styled.div`
   font-family: "Poppins", sans-serif;
