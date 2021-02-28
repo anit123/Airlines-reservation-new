@@ -6,6 +6,7 @@ import Home from "./layout/Home";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import FlightDetails from "./layout/FlightDetails";
 
 function App({ match }) {
   const [toggle, setToggle] = useState(false);
@@ -28,8 +29,12 @@ function App({ match }) {
             <div className="app-main__inner">
               <div className="app-page-title">
                 <Route path={`${match.path}`} exact component={Home} />
+                <Route
+                  exact
+                  path={`${match.path}/flight-details`}
+                  component={FlightDetails}
+                />
                 {/* <Route exact path={`${match.path}/courses`} component={Courses} />
-                <Route exact path={`${match.path}/addCourses`} component={AddCourse} />
                 <Route exact path={`${match.path}/addCoursesImage`} component={AddImage} />
                 <Route exact path={`${match.path}/addSchedule`} component={AddSchedule} />
                 <Route exact path={`${match.path}/editCourse/:id`} component={EditCourse} />

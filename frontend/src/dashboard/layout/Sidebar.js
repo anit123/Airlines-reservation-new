@@ -65,7 +65,9 @@ function Sidebar(props) {
                   <Link to="/">Back To Home</Link>
                 </li>
                 <li>
-                  <Link to={`${props.match.url}/contact`}>Contact</Link>
+                  <Link to={`${props.match.url}/flight-details`}>
+                    Flight Details
+                  </Link>
                 </li>
                 <li onClick={handleShowHide}>
                   <Link to="#">
