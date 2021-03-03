@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React from "react";
+import { toast } from "react-toastify";
 import * as Yup from "yup";
 import { baseURl } from "../../../../constants/apiContact";
 
@@ -30,13 +31,17 @@ const validationSchema = Yup.object().shape({
   // isInbound: false,
 });
 const FlightDetailsForm = () => {
-  const handleFormSubmit = (values) => {
+  const handleFormSubmit = (values, resetForm) => {
     axios
       .post(`${baseURl}api/v1/flight`, values, {
         headers: { Authorization: `Bearer ${localStorage.token}` },
       })
       .then((res) => {
         console.log(res);
+        if (res.status === 201) {
+          toast.success("Successfully Created");
+          resetForm();
+        }
       });
   };
   return (
@@ -46,8 +51,8 @@ const FlightDetailsForm = () => {
         initialValues={initialValues}
         enableReinitialize
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          handleFormSubmit(values);
+        onSubmit={(values, { resetForm }) => {
+          handleFormSubmit(values, resetForm);
         }}
       >
         {() => {
