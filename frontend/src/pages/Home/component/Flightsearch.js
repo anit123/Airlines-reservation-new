@@ -46,7 +46,7 @@ export class Flightsearch extends Component {
     setFieldValue("isOneWayActive", !values.isOneWayActive);
   };
   handleSearch = (values) => {
-    let queryStr = `/flightinfo?from=${values.from.value}&to=${values.to.value}&departure=${values.departure}&return=${values.return}`;
+    let queryStr = `/flightinfo?from=${values.from.label}&to=${values.to.label}&departure=${values.departure}&return=${values.return}`;
     this.props.history.push(queryStr);
   };
   render() {

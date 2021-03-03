@@ -1,9 +1,10 @@
-import { Modal } from "react-bootstrap";
+import AddLocationForm from "./AddLocationForm";
+import AddLocationTable from "./AddLocationTable";
 import React from "react";
-import FlightDetailsForm from "./FlightDetailsForm";
-import FlightDetailsTable from "./FlightDetailsTable";
+import { Button, Modal } from "react-bootstrap";
 
-const FlightDetails = () => {
+const AddLocation = () => {
+  const [isTableShow, setIsTableShow] = React.useState(true);
   const [show, setShow] = React.useState(false);
 
   const handleClose = () => setShow(false);
@@ -17,21 +18,21 @@ const FlightDetails = () => {
             className="btn btn-sm btn-primary "
             onClick={handleShow}
           >
-            Add Flight
+            Add Location
           </button>
         </div>
         <Modal size="lg" show={show} onHide={handleClose} animation={false}>
           <Modal.Header closeButton>
-            <Modal.Title>Add Flight Details</Modal.Title>
+            <Modal.Title>Add Location</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <FlightDetailsForm onClose={handleClose} />
+            <AddLocationForm onClose={handleClose} />
           </Modal.Body>
         </Modal>
-        <FlightDetailsTable />
+        <AddLocationTable />
       </div>
     </div>
   );
 };
 
-export default FlightDetails;
+export default AddLocation;

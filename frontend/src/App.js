@@ -13,7 +13,7 @@ import Webcheckin from "./pages/components/Webcheckin";
 import PassangerDetails from "./pages/PassangerDetails";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import React from "react";
+import React, { useEffect } from "react";
 import { loadUser } from "./store/auth/AuthAction";
 import { connect } from "react-redux";
 import store from "./store/rootStore";
@@ -31,12 +31,13 @@ function App({ auth }) {
     store.dispatch(loadUser());
   }, []);
 
-  if (auth.user?.result?.role === "admin") {
-    history.push("/dashboard");
-  }
+  // if (auth.user?.result?.role === "admin") {
+  //   history.push("/dashboard");
+  // }
+  console.log(history, "chanfes");
   return (
     <div className="App">
-      {!history.location.pathname.includes("/dashboard") && <Navbar />}
+      {history.location.pathname.includes("/dashboard") ? null : <Navbar />}
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/signup" component={Signup} />
@@ -53,7 +54,7 @@ function App({ auth }) {
         <Route path="/webcheckin" component={Webcheckin} />
         <PrivateRouter path="/dashboard" component={Dashboard} />
       </Switch>
-      {!history.location.pathname.includes("/dashboard") && <Footer />}
+      {history.location.pathname.includes("/dashboard") ? null : <Footer />}
       <ToastContainer />
     </div>
   );

@@ -2,14 +2,28 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { Row, Col, Spinner } from "react-bootstrap";
+import axios from "axios";
+import { baseURl } from "../../constants/apiContact";
 
-function Home({}) {
-  useEffect(() => {}, []);
-
-  // if (loading) {
-  //   return <Spinner animated="border" />;
-  // }
-
+function Home() {
+  const [data, setData] = React.useState({ booking: 0, flight: 0, users: 0 });
+  React.useEffect(() => {
+    axios
+      .all([
+        axios.get(`${baseURl}api/v1/flight-booking`),
+        axios.get(`${baseURl}api/v1/flight`),
+        axios.get(`${baseURl}api/v1/users`),
+      ])
+      .then((res) => {
+        console.log(res);
+        setData({
+          booking: res[0].data.results,
+          flight: res[1].data.results,
+          users: res[2].data.results,
+        });
+        // setBookingData(res.data.data.data);
+      });
+  }, []);
   return (
     <div>
       <HomeWrapper>
@@ -20,19 +34,19 @@ function Home({}) {
           <div className="card-body">
             <Row>
               <Col md="4">
-                Number of Events:
+                Number of Booking:
                 <br />
-                {/* {events.results} */}
+                {data.booking}
               </Col>
               <Col md="4">
-                Number of new Booking:
+                Number of Flight:
                 <br />
-                {/* {booking.results} */}
+                {data.flight}
               </Col>
               <Col md="4">
-                Number of courses:
+                Number of Users:
                 <br />
-                {/* {courses.results} */}
+                {data.users}
               </Col>
             </Row>
           </div>

@@ -29,8 +29,8 @@ export class Flightdetails extends Component {
         params: {
           from: from,
           to,
-          departure,
-          return: returnDate,
+          startDate: departure,
+          endingDate: returnDate,
         },
       })
       .then((response) => {

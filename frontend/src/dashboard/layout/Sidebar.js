@@ -69,7 +69,15 @@ function Sidebar(props) {
                     Flight Details
                   </Link>
                 </li>
-                <li onClick={handleShowHide}>
+                <li>
+                  <Link to={`${props.match.url}/add-location`}>
+                    Add Location
+                  </Link>
+                </li>
+                <li>
+                  <Link to={`${props.match.url}/booking-details`}>Booking</Link>
+                </li>
+                {/* <li onClick={handleShowHide}>
                   <Link to="#">
                     <i className="metismenu-icon pe-7s-diamond"></i>
                     Courses
@@ -97,8 +105,8 @@ function Sidebar(props) {
                       </li>
                     </ul>
                   ) : null}
-                </li>
-                <li onClick={handleToggleEvt}>
+                </li> */}
+                {/* <li onClick={handleToggleEvt}>
                   <Link to="#">
                     <i className="metismenu-icon pe-7s-diamond"></i>
                     Events
@@ -117,8 +125,8 @@ function Sidebar(props) {
                       </li>
                     </ul>
                   ) : null}
-                </li>
-                <li onClick={handleToggleBooking}>
+                </li> */}
+                {/* <li onClick={handleToggleBooking}>
                   <Link to="#">
                     <i className="metismenu-icon pe-7s-diamond"></i>
                     Booking
@@ -136,8 +144,8 @@ function Sidebar(props) {
                       </li>
                     </ul>
                   ) : null}
-                </li>
-                <li onClick={handleToggleSlider}>
+                </li> */}
+                {/* <li onClick={handleToggleSlider}>
                   <Link to="#">
                     <i className="metismenu-icon pe-7s-diamond"></i>
                     Slider
@@ -155,8 +163,8 @@ function Sidebar(props) {
                       </li>
                     </ul>
                   ) : null}
-                </li>
-                <li onClick={handleToggleBlog}>
+                </li> */}
+                {/* <li onClick={handleToggleBlog}>
                   <Link to="#">
                     <i className="metismenu-icon pe-7s-diamond"></i>
                     Blog
@@ -172,7 +180,7 @@ function Sidebar(props) {
                       </li>
                     </ul>
                   ) : null}
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>

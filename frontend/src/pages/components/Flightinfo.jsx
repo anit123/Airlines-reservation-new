@@ -19,7 +19,7 @@ class Flightinfo extends Component {
             <button className="btn btn-primary">Two Way</button>
             <button className="btn btn-primary ml-3">One Way</button>
           </div> */}
-          <form class="form-inline">
+          {/* <form class="form-inline">
             <div class="col-auto">
               <label class="sr-only" for="inlineFormInputGroup">
                 Departure
@@ -160,7 +160,7 @@ class Flightinfo extends Component {
                 </i>
               </button>
             </div>
-          </form>
+          </form> */}
         </div>
         <Stepprocess />
         <Flightdetails />

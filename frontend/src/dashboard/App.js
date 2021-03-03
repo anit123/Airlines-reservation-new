@@ -7,9 +7,11 @@ import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import FlightDetails from "./layout/FlightDetails";
+import AddLocation from "./layout/FlightDetails/AddLocation";
+import BookingDetails from "./layout/FlightDetails/BookingDetails";
 
 function App({ match }) {
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
   function handleShowHide() {
     setToggle(!toggle);
   }
@@ -34,20 +36,16 @@ function App({ match }) {
                   path={`${match.path}/flight-details`}
                   component={FlightDetails}
                 />
-                {/* <Route exact path={`${match.path}/courses`} component={Courses} />
-                <Route exact path={`${match.path}/addCoursesImage`} component={AddImage} />
-                <Route exact path={`${match.path}/addSchedule`} component={AddSchedule} />
-                <Route exact path={`${match.path}/editCourse/:id`} component={EditCourse} />
-                <Route exact path={`${match.path}/events`} component={EventDashboard} />
-                <Route exact path={`${match.path}/addEvents`} component={EventForm} />
-                <Route exact path={`${match.path}/editEvent/:id`} component={EditEvent} />
-                <Route exact path={`${match.path}/booking`} component={BookingCourse} />
-                <Route exact path={`${match.path}/filterbooking`} component={BookingCourseFilter} />
-                <Route exact path={`${match.path}/slider`} component={SliderDashboard} />
-                <Route exact path={`${match.path}/addSlider`} component={AddSliderDashboard} />
-                <Route exact path={`${match.path}/contact`} component={ContactDashboard} />
-                <Route exact path={`${match.path}/blog`} component={BlogDashboard} />
-                <Route exact path={`${match.path}/addBlog`} component={AddBlog} /> */}
+                <Route
+                  exact
+                  path={`${match.path}/add-location`}
+                  component={AddLocation}
+                />
+                <Route
+                  exact
+                  path={`${match.path}/booking-details`}
+                  component={BookingDetails}
+                />
               </div>
             </div>
           </div>

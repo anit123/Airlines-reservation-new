@@ -24,11 +24,17 @@ class Login extends Component {
   handleLoginSubmit = (values) => {
     this.props.login(values.email, values.password);
     console.log(this.props.auth);
-    if (this.props.auth.isAuthenticated) {
+
+    if (this.props.auth.user?.result?.role === "admin") {
+      this.props.history.push("/dashboard");
+    } else {
       this.props.history.push("/");
     }
   };
   render() {
+    if (this.props.auth.user?.result?.role === "admin") {
+      this.props.history.push("/dashboard");
+    }
     return (
       <LoginWrapper>
         <div className="background-img">
