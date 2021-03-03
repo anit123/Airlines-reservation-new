@@ -1,6 +1,8 @@
+import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React from "react";
 import * as Yup from "yup";
+import { baseURl } from "../../../../constants/apiContact";
 
 const initialValues = {
   from: "",
@@ -12,7 +14,7 @@ const initialValues = {
   endingDate: "",
   time: "",
   maxPassanger: "",
-  isInbound: false,
+  isInbound: "false",
 };
 
 const validationSchema = Yup.object().shape({
@@ -25,9 +27,18 @@ const validationSchema = Yup.object().shape({
   endingDate: Yup.date().required("this is required Field!"),
   time: Yup.string().required("this is required Field!"),
   maxPassanger: Yup.number().required("this is required Field!"),
-  isInbound: false,
+  // isInbound: false,
 });
 const FlightDetailsForm = () => {
+  const handleFormSubmit = (values) => {
+    axios
+      .post(`${baseURl}api/v1/flight`, values, {
+        headers: { Authorization: `Bearer ${localStorage.token}` },
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  };
   return (
     <div className="card card-body">
       <h2 className="text-center">Add Flight Details</h2>
@@ -35,7 +46,9 @@ const FlightDetailsForm = () => {
         initialValues={initialValues}
         enableReinitialize
         validationSchema={validationSchema}
-        onSubmit={() => {}}
+        onSubmit={(values) => {
+          handleFormSubmit(values);
+        }}
       >
         {() => {
           return (
@@ -135,6 +148,30 @@ const FlightDetailsForm = () => {
                       component="div"
                       className="text-danger"
                     />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="form-group">
+                    <label htmlFor="">Time</label>
+                    <Field type="time" className="form-control" name="time" />
+                    <ErrorMessage
+                      name="time"
+                      component="div"
+                      className="text-danger"
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <label htmlFor="">Is Inbound</label>
+                  <div className="form-group">
+                    <label>
+                      <Field type="radio" name="isInbound" value="true" />
+                      Yes
+                    </label>
+                    <label>
+                      <Field type="radio" name="isInbound" value="false" />
+                      No
+                    </label>
                   </div>
                 </div>
               </div>
