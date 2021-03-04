@@ -109,7 +109,11 @@ class Navbar extends Component {
                           >
                             <button
                               type="button"
-                              onClick={() => logout()}
+                              onClick={() => {
+                                this.props.history.replace("/");
+                                window.location.reload();
+                                logout();
+                              }}
                               tabIndex={0}
                               className="dropdown-item"
                             >

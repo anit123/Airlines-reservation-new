@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { login } from "../../store/auth/AuthAction";
 import { ErrorMessage, Form, Formik } from "formik";
@@ -24,7 +24,6 @@ class Login extends Component {
   handleLoginSubmit = (values) => {
     this.props.login(values.email, values.password);
     console.log(this.props.auth);
-
     if (this.props.auth.user?.result?.role === "admin") {
       this.props.history.push("/dashboard");
     } else {
@@ -33,7 +32,8 @@ class Login extends Component {
   };
   render() {
     if (this.props.auth.user?.result?.role === "admin") {
-      this.props.history.push("/dashboard");
+      // this.props.history.push("/dashboard");
+      return <Redirect to="/dashboard" />;
     }
     return (
       <LoginWrapper>

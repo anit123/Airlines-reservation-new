@@ -75,9 +75,9 @@ export class Navbar extends Component {
                         <span
                           onClick={() => {
                             this.props.history.replace("/");
+                            window.location.reload();
                             this.props.logout();
                             this.props.loadUser();
-                            window.location.reload();
                           }}
                         >
                           Logout
