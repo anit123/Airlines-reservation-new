@@ -73,7 +73,7 @@ export class Flightdetails extends Component {
                     <td>{content.name}</td>
                     <td>{moment(content.startDate).format("MMM Do YY")}</td>
                     <td>{moment(content.endingDate).format("MMM Do YY")}</td>
-                    <td>{content.isInbound && "true"}</td>
+                    <td>{content.isInbound ? "two way" : "One Way"}</td>
                     <td>{content.weight}</td>
                     <td onClick={() => this.handlePushToDetails(content)}>
                       <button
