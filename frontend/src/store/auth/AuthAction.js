@@ -9,6 +9,7 @@ import {
 } from "../../constants/types";
 import setAuthToken from "../../utils/SetAuthTokenUtility";
 import { baseURl as apiEndPoint } from "../../constants/apiContact";
+import { toast } from "react-toastify";
 // Getting data from user
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
@@ -69,7 +70,7 @@ export const register = ({ name, email, password, passwordConfirm }) => async (
 };
 
 // login user
-export const login = (email, password) => async (dispatch) => {
+export const login = (email, password, history) => async (dispatch) => {
   // const config = {
   //   header: {
   //     'Content-Type': 'application/json',
@@ -81,6 +82,9 @@ export const login = (email, password) => async (dispatch) => {
       email: email,
       password: password,
     });
+    if (res.status === "success") {
+      toast.success("Login successfully");
+    }
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,

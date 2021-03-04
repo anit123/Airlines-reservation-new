@@ -15,6 +15,53 @@ import { DropdownButton, Dropdown, NavDropdown } from "react-bootstrap";
 import { logout, loadUser } from "../../../store/auth/AuthAction";
 
 export class Navbar extends Component {
+  getDropdownContent = () => {
+    if (this.props.auth.user?.result?.role === "user") {
+      return (
+        <li class="nav-item">
+          {/* <Link to="/login" class="nav-link" href="#">
+                      {this.props.auth.user?.result?.name}
+                    </Link> */}
+          <NavDropdown
+            // id="dropdown-basic-button"
+            title={this.props.auth.user?.result?.name}
+            className="btn p-0"
+          >
+            <Dropdown.Item href="#/action-1">Booking</Dropdown.Item>
+            <Dropdown.Item href="#/action-2">Profile</Dropdown.Item>
+            <Dropdown.Item>
+              <span
+                onClick={() => {
+                  this.props.history.replace("/");
+                  window.location.reload();
+                  this.props.logout();
+                  this.props.loadUser();
+                }}
+              >
+                Logout
+              </span>
+            </Dropdown.Item>
+          </NavDropdown>
+        </li>
+      );
+    } else if (this.props.auth.user?.result?.role === "admin") {
+      return (
+        <li class="nav-item">
+          <Link to="/dashboard" class="nav-link">
+            Dashboard
+          </Link>
+        </li>
+      );
+    } else {
+      return (
+        <li class="nav-item">
+          <Link to="/login" class="nav-link">
+            Log in
+          </Link>
+        </li>
+      );
+    }
+  };
   render() {
     console.log(this.props.auth);
 
@@ -59,39 +106,7 @@ export class Navbar extends Component {
                     Web Checkin
                   </Link>
                 </li>
-                {this.props.auth.user?.result?.role === "user" ? (
-                  <li class="nav-item">
-                    {/* <Link to="/login" class="nav-link" href="#">
-                      {this.props.auth.user?.result?.name}
-                    </Link> */}
-                    <NavDropdown
-                      // id="dropdown-basic-button"
-                      title={this.props.auth.user?.result?.name}
-                      className="btn p-0"
-                    >
-                      <Dropdown.Item href="#/action-1">Booking</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">Profile</Dropdown.Item>
-                      <Dropdown.Item>
-                        <span
-                          onClick={() => {
-                            this.props.history.replace("/");
-                            window.location.reload();
-                            this.props.logout();
-                            this.props.loadUser();
-                          }}
-                        >
-                          Logout
-                        </span>
-                      </Dropdown.Item>
-                    </NavDropdown>
-                  </li>
-                ) : (
-                  <li class="nav-item">
-                    <Link to="/login" class="nav-link" href="#">
-                      Log in
-                    </Link>
-                  </li>
-                )}
+                {React.cloneElement(this.getDropdownContent())}
               </ul>
             </div>
           </nav>
