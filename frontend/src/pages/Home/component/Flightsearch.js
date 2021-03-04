@@ -14,7 +14,7 @@ const validationSchema = Yup.object().shape({
   to: Yup.object().nullable().required("This is required fields!"),
   departure: Yup.date().required("this is required fiedls!"),
   return: Yup.date().when("isOnewayActive", {
-    is: true,
+    is: false,
     then: Yup.date().required("This is required fields!"),
   }),
 });
@@ -46,7 +46,12 @@ export class Flightsearch extends Component {
     setFieldValue("isOneWayActive", !values.isOneWayActive);
   };
   handleSearch = (values) => {
-    let queryStr = `/flightinfo?from=${values.from.label}&to=${values.to.label}&departure=${values.departure}&return=${values.return}`;
+    let queryStr;
+    if (!values.isOneWayActive) {
+      queryStr = `/flightinfo?from=${values.from.label}&to=${values.to.label}&departure=${values.departure}&return=${values.return}`;
+    } else {
+      queryStr = `/flightinfo?from=${values.from.label}&to=${values.to.label}&departure=${values.departure}`;
+    }
     this.props.history.push(queryStr);
   };
   render() {
