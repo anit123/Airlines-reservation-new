@@ -21,6 +21,7 @@ import setAuthToken from "./utils/SetAuthTokenUtility";
 import PrivateRouter from "./utils/PrivateRouter";
 import Dashboard from "./dashboard/App";
 import Payment from "./pages/PassangerDetails/Payment";
+import AvailableSeat from "./pages/components/AvailableSeat";
 
 if (localStorage.token) {
   setAuthToken(localStorage.toke);
@@ -52,6 +53,7 @@ function App({ auth }) {
           component={PassangerDetails}
         />
         <Route path="/webcheckin" component={Webcheckin} />
+        <Route path="/available-seat" component={AvailableSeat} />
         <PrivateRouter path="/dashboard" component={Dashboard} />
       </Switch>
       {history.location.pathname.includes("/dashboard") ? null : <Footer />}

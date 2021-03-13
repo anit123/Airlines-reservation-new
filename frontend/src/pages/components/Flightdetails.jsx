@@ -7,12 +7,15 @@ import moment from "moment";
 import { getQueryParams } from "../../utils/getQueryString";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
+import { Button, Modal } from "react-bootstrap";
+import AvailableSeat from "./AvailableSeat";
 export class Flightdetails extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       flightDetails: [],
+      modalShow: false,
     };
   }
 
@@ -75,12 +78,19 @@ export class Flightdetails extends Component {
                     <td>{moment(content.endingDate).format("MMM Do YY")}</td>
                     <td>{content.isInbound ? "two way" : "One Way"}</td>
                     <td>{content.weight}</td>
-                    <td onClick={() => this.handlePushToDetails(content)}>
+                    <td>
                       <button
-                        // to={`/bookingDetails/${content._id}`}
+                        onClick={() => this.handlePushToDetails(content)}
                         className="btn btn-sm btn-success"
                       >
                         Book
+                      </button>
+                      <button
+                        onClick={() => this.setState({ modalShow: true })}
+                        // to={`/bookingDetails/${content._id}`}
+                        className="btn btn-sm btn-success ml-2"
+                      >
+                        Seat
                       </button>
                     </td>
                   </tr>
@@ -92,6 +102,27 @@ export class Flightdetails extends Component {
             </tbody>
           </table>
         </div>
+        <Modal
+          show={this.state.modalShow}
+          onHide={() => this.setState({ modalShow: false })}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">
+              Available Seat are given below:
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <AvailableSeat />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={() => this.setState({ modalShow: false })}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </FlightdetailsWrapper>
     );
   }
