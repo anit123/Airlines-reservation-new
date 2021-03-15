@@ -99,7 +99,7 @@ const AvailableSeat = () => {
 
 const SeatWrapper = styled.div`
   .card-seat {
-    background-color: #b9b9b9;
+    /* background-color: #b9b9b9; */
     padding: 20px;
   }
   .seat-number {
