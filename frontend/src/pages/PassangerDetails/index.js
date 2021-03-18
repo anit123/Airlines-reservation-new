@@ -1,14 +1,38 @@
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { Component } from "react";
+import DataTable from "react-data-table-component";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import { baseURl } from "../../constants/apiContact";
 import BookingFlightInfo from "./components/BookFlightInFo";
 import { initialValue, validationSchema } from "./schema";
 
+const columnsDef = [
+  {
+    name: "Seat Name",
+    selector: "name",
+  },
+  {
+    name: "Seat Number",
+    selector: "seatNumber",
+  },
+  {
+    name: "Seat Number",
+    selector: "seatCategoryName",
+  },
+  {
+    name: "Status",
+    cell: (data) => {
+      return <div>{data.isActive ? "Available" : "Already Booked"}</div>;
+    },
+  },
+];
 class PassangerDetails extends Component {
-  state = {};
+  state = {
+    responseData: [],
+    toggledClearRows: false,
+  };
 
   handleSubmit = async (values) => {
     console.log(values);
@@ -22,6 +46,26 @@ class PassangerDetails extends Component {
         }
       })
       .catch((err) => console.log(err));
+  };
+
+  componentDidMount() {
+    this.getbookingInfo();
+  }
+
+  getbookingInfo = () => {
+    axios
+      .get(`${baseURl}api/v1/flight/${this.props.match.params.bookingId}`)
+      .then((res) => {
+        console.log(res);
+        this.setState({ responseData: res.data.data.data });
+      });
+  };
+  handleClearRows = () => {
+    this.setState({ toggledClearRows: !this.state.toggledClearRows });
+  };
+  handleChange = (state) => {
+    // You can use setState or dispatch with something like Redux so we can use the retrieved data
+    console.log("Selected Rows: ", state.selectedRows);
   };
 
   render() {
@@ -241,6 +285,17 @@ class PassangerDetails extends Component {
                           className="text-danger"
                         />
                       </div>
+                    </div>
+                    <div className="col-md-12">
+                      <h3 className="my-3">Available Seat Details</h3>
+                      <DataTable
+                        columns={columnsDef}
+                        data={this.state.responseData?.seat || []}
+                        noHeader={true}
+                        selectableRows
+                        onSelectedRowsChange={this.handleChange}
+                        clearSelectedRows={this.state.toggledClearRows}
+                      />
                     </div>
                   </div>
                   <button type="submit" className="btn btn-primary ">

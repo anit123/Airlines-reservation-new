@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
 import React, { useEffect } from "react";
 import Select from "react-select";
 import { toast } from "react-toastify";
@@ -17,6 +17,9 @@ const initialValues = {
   time: "",
   maxPassanger: "",
   isInbound: "false",
+  seat: [
+    { name: "", seatNumber: "", id: 1, seatCategoryName: "", isActive: true },
+  ],
 };
 
 const validationSchema = Yup.object().shape({
@@ -72,7 +75,7 @@ const FlightDetailsForm = ({ onClose }) => {
           handleFormSubmit(values, resetForm);
         }}
       >
-        {({ setFieldValue, setFieldTouched }) => {
+        {({ setFieldValue, setFieldTouched, values }) => {
           return (
             <Form>
               <div className="form-row">
@@ -222,6 +225,72 @@ const FlightDetailsForm = ({ onClose }) => {
                   </div>
                 </div>
               </div>
+              <FieldArray
+                name="seat"
+                render={(arrayHelpers) => (
+                  <div>
+                    <button
+                      type="button"
+                      className="btn btn-primary my-3"
+                      onClick={() =>
+                        arrayHelpers.push({
+                          name: "",
+                          seatNumber: "",
+                          id: 1,
+                          isActive: true,
+                        })
+                      }
+                    >
+                      Add Seat
+                    </button>
+
+                    {values.seat && values.seat.length > 0
+                      ? values.seat.map((friend, index) => (
+                          <div key={index}>
+                            <div className="row">
+                              <div className="col-md-3">
+                                <div className="form-group">
+                                  <Field
+                                    className="form-control"
+                                    name={`seat.${index}.name`}
+                                    placeholder="Seat Name"
+                                  />
+                                </div>
+                              </div>
+                              <div className="col-md-3">
+                                <div className="form-group">
+                                  <Field
+                                    className="form-control"
+                                    name={`seat.${index}.seatNumber`}
+                                    placeholder="Seat Number"
+                                  />
+                                </div>
+                              </div>
+                              <div className="col-md-4">
+                                <div className="form-group">
+                                  <Field
+                                    className="form-control"
+                                    name={`seat.${index}.seatCategoryName`}
+                                    placeholder="Seat Category"
+                                  />
+                                </div>
+                              </div>
+                              <div className="col-md-1">
+                                <button
+                                  type="button"
+                                  className="btn btn-danger"
+                                  onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
+                                >
+                                  -
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                      : null}
+                  </div>
+                )}
+              />
               <button type="submit" className="btn btn-primary ">
                 Save
               </button>

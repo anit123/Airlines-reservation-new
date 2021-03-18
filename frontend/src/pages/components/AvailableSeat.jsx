@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const AvailableSeat = () => {
+const AvailableSeat = ({ seatDeatils }) => {
   return (
     <SeatWrapper>
       <div>
@@ -16,7 +16,20 @@ const AvailableSeat = () => {
             </div>
             <div className="card-seat mt-4">
               <div className="row ">
-                <div className="col-1 mt-3">
+                {seatDeatils?.seat?.map((item) => {
+                  return (
+                    <div className="col-1 mt-3">
+                      <div
+                        className={
+                          item?.isActive ? "seat-number" : "seat-number booked"
+                        }
+                      >
+                        {item.name}
+                      </div>
+                    </div>
+                  );
+                })}
+                {/* <div className="col-1 mt-3">
                   <div className="seat-number">111</div>
                 </div>
                 <div className="col-1 mt-3">
@@ -87,7 +100,7 @@ const AvailableSeat = () => {
                 </div>
                 <div className="col-1 mt-3">
                   <div className="seat-number">111</div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

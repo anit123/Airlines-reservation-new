@@ -16,6 +16,7 @@ export class Flightdetails extends Component {
     this.state = {
       flightDetails: [],
       modalShow: false,
+      seatDeatils: "",
     };
   }
 
@@ -86,7 +87,12 @@ export class Flightdetails extends Component {
                         Book
                       </button>
                       <button
-                        onClick={() => this.setState({ modalShow: true })}
+                        onClick={() =>
+                          this.setState({
+                            modalShow: true,
+                            seatDeatils: content,
+                          })
+                        }
                         // to={`/bookingDetails/${content._id}`}
                         className="btn btn-sm btn-success ml-2"
                       >
@@ -115,7 +121,7 @@ export class Flightdetails extends Component {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <AvailableSeat />
+            <AvailableSeat seatDeatils={this.state.seatDeatils} />
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={() => this.setState({ modalShow: false })}>

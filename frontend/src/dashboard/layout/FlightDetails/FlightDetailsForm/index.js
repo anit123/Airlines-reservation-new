@@ -20,7 +20,7 @@ const FlightDetails = () => {
             Add Flight
           </button>
         </div>
-        <Modal size="lg" show={show} onHide={handleClose} animation={false}>
+        <Modal size="xl" show={show} onHide={handleClose} animation={false}>
           <Modal.Header closeButton>
             <Modal.Title>Add Flight Details</Modal.Title>
           </Modal.Header>
