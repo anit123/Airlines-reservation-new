@@ -236,7 +236,7 @@ const FlightDetailsForm = ({ onClose }) => {
                         arrayHelpers.push({
                           name: "",
                           seatNumber: "",
-                          id: 1,
+                          id: values.seat.length + 1,
                           isActive: true,
                         })
                       }
