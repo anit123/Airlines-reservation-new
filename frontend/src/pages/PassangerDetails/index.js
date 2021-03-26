@@ -32,16 +32,35 @@ class PassangerDetails extends Component {
   state = {
     responseData: [],
     toggledClearRows: false,
+    selectedSeat: [],
   };
 
   handleSubmit = async (values) => {
     console.log(values);
-
+    const seat = this.state.responseData?.seat.map((cotnent) => {
+      if (
+        this.state.selectedSeat.findIndex((data) => data.id === cotnent.id) !==
+        -1
+      ) {
+        return { ...cotnent, isActive: false };
+      }
+      return { ...cotnent, isActive: true };
+    });
+    console.log(seat);
+    axios.put(`${baseURl}api/v1/flight/${this.props.match.params.bookingId}`, {
+      ...this.state.responseData,
+      seat: seat,
+    });
     axios
-      .post(`${baseURl}api/v1/flight-booking`, values)
+      .post(`${baseURl}api/v1/flight-booking`, {
+        ...values,
+        noOfPassenger: values.noOfPassenger,
+      })
       .then((res) => {
         if ((res.status === 201) | (res.status === 200)) {
-          this.props.history.push(`${this.props.match.url}/payment`);
+          this.props.history.push(
+            `${this.props.match.url}/payment?noOfPassanger=${values.noOfPassanger}`
+          );
           toast.info("Your booking has successfully complted.");
         }
       })
@@ -66,6 +85,7 @@ class PassangerDetails extends Component {
   handleChange = (state) => {
     // You can use setState or dispatch with something like Redux so we can use the retrieved data
     console.log("Selected Rows: ", state.selectedRows);
+    this.setState({ selectedSeat: state.selectedRows });
   };
 
   render() {
@@ -286,6 +306,21 @@ class PassangerDetails extends Component {
                         />
                       </div>
                     </div>
+                    <div className="col-md-4">
+                      <label htmlFor="">No. Of Passangers</label>
+                      <div className="form-group">
+                        <Field
+                          type="number"
+                          className="form-control"
+                          name="noOfPassanger"
+                        />
+                        <ErrorMessage
+                          name="passemail"
+                          component="div"
+                          className="text-danger"
+                        />
+                      </div>
+                    </div>
                     <div className="col-md-12">
                       <h3 className="my-3">Available Seat Details</h3>
                       <DataTable
@@ -295,6 +330,7 @@ class PassangerDetails extends Component {
                         selectableRows
                         onSelectedRowsChange={this.handleChange}
                         clearSelectedRows={this.state.toggledClearRows}
+                        selectableRowDisabled={(row) => !row.isActive}
                       />
                     </div>
                   </div>

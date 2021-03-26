@@ -14,6 +14,7 @@ export const initialValue = {
   passemail: "",
   passDocType: "",
   passDocNumber: "",
+  noOfPassanger: "",
 };
 
 export const validationSchema = Yup.object().shape({
@@ -33,4 +34,5 @@ export const validationSchema = Yup.object().shape({
     .positive()
     .required("This is Required fields!"),
   passemail: Yup.string().email().required("This is Required fields!"),
+  noOfPassanger: Yup.string().required("This is Required fields!"),
 });

@@ -3,16 +3,20 @@ import BookingFlightInfo from "../components/BookFlightInFo";
 import { loadStripe } from "@stripe/stripe-js";
 import { baseURl } from "../../../constants/apiContact";
 import axios from "axios";
-import { useRouteMatch } from "react-router-dom";
+import { useLocation, useRouteMatch } from "react-router-dom";
+import { getQueryParams } from "../../../utils/getQueryString";
 const stripePromise = loadStripe(
   "pk_test_51IO2oMDI0qDxXQ1I8O6LKoHCLUBhYzp2YH8I40L16mtO8BOZ1xqmQl3fpisVYphzVNVA6hKWIXOttZEIrPrX8Ko9006dtIgkJ6"
 );
 
 const Payment = () => {
   let match = useRouteMatch("/bookingDetails/:bookingId/payment");
+  const location = useLocation();
   const handlePayment = async () => {
+    const noOfPassanger = getQueryParams(location.search).get("noOfPassanger");
+    console.log(noOfPassanger);
     const session = await axios.get(
-      `${baseURl}api/v1/booking/checkout-session/${match.params.bookingId}`,
+      `${baseURl}api/v1/booking/checkout-session/${match.params.bookingId}/${noOfPassanger}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.token}`,
